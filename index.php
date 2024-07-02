@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,7 +127,6 @@
 		if(mysqli_num_rows($query)>0){
 			$data = mysqli_fetch_assoc($query);
 			if($data["password"]==sha1($si_password)){
-				session_start();
 				$_SESSION["user_role"]=$data["user_role"];
 				$_SESSION["username"]=$data["username"];
 
