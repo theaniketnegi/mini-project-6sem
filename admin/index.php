@@ -30,7 +30,7 @@ require_once("middleware.php");
     <main class="flex-1 flex justify-center items-center">
 		<?php
 			if(isset($_GET["candidatesPage"])){
-
+				require_once("candidates.php");
 			} else if(isset($_GET["logout"])){
 				session_destroy();
 				session_unset();
@@ -49,7 +49,7 @@ require_once("middleware.php");
 							</div>
 							<div class="mb-4">
 								<label class="block text-gray-600">Number of candidates?</label>
-								<input type="text" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off" name="ele_candidates" required />
+								<input type="number" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off" name="ele_candidates" required />
 							</div>
 							<div class="mb-4">
 								<label class="block text-gray-600">Starting date</label>
