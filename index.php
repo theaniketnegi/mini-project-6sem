@@ -1,5 +1,16 @@
 <?php
 session_start();
+if(isset($_SESSION["user_role"])){
+	if($_SESSION["user_role"]=='Admin'){
+		?>
+			<script>location.assign("admin/index.php");</script>
+		<?php
+	} else {
+		?>
+			<script>location.assign("voter/index.php");</script>
+		<?php
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
