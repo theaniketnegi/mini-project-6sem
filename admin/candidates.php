@@ -95,7 +95,7 @@
 									</td>
 									<td class="px-4 py-3 whitespace-nowrap text-sm "><?php echo $row["details"]; ?></td>
 									<td class="px-4 py-3 whitespace-nowrap text-sm ">
-										<a href="index.php?candidatesPage=1&delete=<?php echo $row['id'] ?>">Delete</a>
+										<a href="index.php?candidatesPage=1&delete=<?php echo $row['id'] ?>" class="rounded-sm py-1 px-5 bg-red-600 text-white ">Delete</a>
 									</td>
 								</tr>
 							<?php

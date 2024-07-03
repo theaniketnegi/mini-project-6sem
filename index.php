@@ -129,7 +129,7 @@ session_start();
 			if($data["password"]==sha1($si_password)){
 				$_SESSION["user_role"]=$data["user_role"];
 				$_SESSION["username"]=$data["username"];
-
+				$_SESSION["userid"]=$data["id"];
 				if($data["user_role"]=="Admin"){
 					?>
 					
