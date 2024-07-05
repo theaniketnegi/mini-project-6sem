@@ -6,7 +6,7 @@
 				<label class="block text-gray-600">Election title</label>
 				<select name="election_id" class="p-2" required>
 					<?php
-						$fetchElections = mysqli_query($db, "SELECT id, title, num_candidates FROM elections WHERE inserted_by='".$_SESSION["username"]."'");
+						$fetchElections = mysqli_query($db, "SELECT id, title, num_candidates FROM elections WHERE inserted_by='".$_SESSION["userid"]."'");
 						$count = 0;
 						if(mysqli_num_rows($fetchElections)>0){
 							while($row = mysqli_fetch_assoc($fetchElections)){
@@ -73,7 +73,7 @@
 			<tbody class="">
 				<?php
 					
-					$fetchingData = mysqli_query($db, "SELECT c.id, e.title, c.name, c.details FROM candidates c JOIN elections e ON e.id=c.election_id") or die(mysqli_error($db));
+					$fetchingData = mysqli_query($db, "SELECT c.id, e.title, c.name, c.details FROM candidates c JOIN elections e ON e.id=c.election_id WHERE e.inserted_by='".$_SESSION['userid']."'") or die(mysqli_error($db));
 					if(isset($_GET['deleted'])){
 						?>
 						<tr>
@@ -125,7 +125,7 @@
 			<script>location.assign("index.php?candidatesPage=1&failed=1")</script>
 			<?php
 		}
-		mysqli_query($db, "INSERT INTO candidates (election_id, name, details) VALUES('".$election_id."', '".$name."', '".$details."')") or die(mysqli_error($db));
+		mysqli_query($db, "INSERT INTO candidates (election_id, name, details, inserted_by) VALUES('".$election_id."', '".$name."', '".$details."', '".$_SESSION['userid']."')") or die(mysqli_error($db));
 		?>
 		<script>location.assign("index.php?candidatesPage=1&added=1");</script>
 		<?php

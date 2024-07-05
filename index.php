@@ -116,7 +116,7 @@ if(isset($_SESSION["user_role"])){
 		$su_role = "Voter";
 
 		if($su_password == $su_c_password){
-			mysqli_query($db, "INSERT INTO users(username, phone, password, user_role) VALUES('".$su_name."', '".$su_phone."', '".sha1($su_password)."', '".$su_role."')") or die(mysqli_error($db));
+			mysqli_query($db, "INSERT INTO users(username, phone, password, user_role) VALUES('".$su_name."', '".$su_phone."', '".hash('sha256', $su_password)."', '".$su_role."')") or die(mysqli_error($db));
 			?>
 			<script>
 				location.assign("index.php?signup=1&registered=1");
@@ -137,7 +137,7 @@ if(isset($_SESSION["user_role"])){
 		
 		if(mysqli_num_rows($query)>0){
 			$data = mysqli_fetch_assoc($query);
-			if($data["password"]==sha1($si_password)){
+			if($data["password"]==hash('sha256',$si_password)){
 				$_SESSION["user_role"]=$data["user_role"];
 				$_SESSION["username"]=$data["username"];
 				$_SESSION["userid"]=$data["id"];

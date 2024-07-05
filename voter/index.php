@@ -20,6 +20,7 @@ require_once("middleware.php");
       </a>
       <nav class="hidden lg:flex items-center gap-6">
         <a href="index.php" class="text-sm font-medium hover:underline underline-offset-4">Home</a>
+        <a href="index.php?old=1" class="text-sm font-medium hover:underline underline-offset-4">Past elections</a>
         <a href="index.php?logout=1" class="text-sm font-medium hover:underline underline-offset-4">Logout</a>
       </nav>
 	  <p>
@@ -34,6 +35,8 @@ require_once("middleware.php");
 		?>
 	<script>location.assign("../index.php");</script>
 	<?php
+	} else if(isset($_GET["old"])){
+		require_once('past_elections.php');
 	} else {
 		?>
 		

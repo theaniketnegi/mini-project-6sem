@@ -57,7 +57,7 @@ require_once("middleware.php");
 						<tbody class="">
 							<?php
 								
-								$fetchingData = mysqli_query($db, "SELECT*FROM elections WHERE inserted_by='".$_SESSION["username"]."'") or die(mysqli_error($db));
+								$fetchingData = mysqli_query($db, "SELECT*FROM elections WHERE inserted_by='".$_SESSION["userid"]."'") or die(mysqli_error($db));
 								if(isset($_GET['deleted'])){
 									?>
 									<tr>

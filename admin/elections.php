@@ -39,7 +39,7 @@
 			<tbody class="">
 				<?php
 					
-					$fetchingData = mysqli_query($db, "SELECT*FROM elections WHERE inserted_by='".$_SESSION["username"]."'") or die(mysqli_error($db));
+					$fetchingData = mysqli_query($db, "SELECT*FROM elections WHERE inserted_by='".$_SESSION["userid"]."'") or die(mysqli_error($db));
 					if(isset($_GET['deleted'])){
 						?>
 						<tr>
@@ -103,7 +103,7 @@
 	if(isset($_POST["ele_add"])){
 		$title = $_POST["ele_title"];
 		$num_candidates = $_POST["ele_candidates"];
-		$inserted_by = $_SESSION["username"];
+		$inserted_by = $_SESSION["userid"];
 		$inserted_on = date("Y-m-d");
 		
 		mysqli_query($db, "INSERT INTO elections (title, num_candidates, status, inserted_by, inserted_on) VALUES ('".$title."', '".$num_candidates."', '1' , '".$inserted_by."', '".$inserted_on."')") or die(mysqli_error($db));
