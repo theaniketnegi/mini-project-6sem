@@ -29,7 +29,9 @@
 
 			if(mysqli_num_rows($fetchMaxVotes)>0){
 				$row = mysqli_fetch_assoc($fetchMaxVotes);
-				echo "Candidate ".$row['name']." won the election with ".$row['total_votes'];
+				echo "Candidate ".$row['name']." won the election with ".$row['total_votes']. " votes.";
+			} else {
+				echo "No candidates stood in this election.";
 			}
 			}
 			}

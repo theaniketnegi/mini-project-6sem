@@ -40,10 +40,13 @@ require_once("middleware.php");
 				<?php
 			} else if(isset($_GET["electionsPage"])) {
 				require_once("elections.php");
-			} else {
+			} else if(isset($_GET["result"])) {
+				require_once('results.php');
+			}
+			 else {
 				?>
-				<div class="col-span-8 p-12 w-full">
-					<h3 class="font-bold text-lg">Elections</h3>
+				<div class="p-12 w-full">
+					<h3 class="font-bold text-3xl">Elections</h3>
 					<table class="table-fixed min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
 						<thead>
 							<tr>
@@ -79,23 +82,7 @@ require_once("middleware.php");
 									</tr>
 									<?php
 								}
-								if(isset($_GET['no_candidates'])){
-									?>
-									<tr>
-										<td colspan="7" class="bg-red-600 rounded-lg p-2 mt-4 font-semibold text-white text-center mb-2">No candidates found!</td>
-									</tr>
-									<?php
-								}
-								if(isset($_GET['results'])){
-									$id = $_GET['results'];
-									$candidateDetails = mysqli_query($db, "SELECT*FROM candidates WHERE id='".$id."'");
-									$row = mysqli_fetch_assoc($candidateDetails);
-									?>
-									<tr>
-										<td colspan="7" class="bg-green-600 rounded-lg p-2 mt-4 font-semibold text-white text-center mb-2"><?php echo "Candidate ".$row['name']." won with ".$_GET['total_votes']." vote(s)!" ?></td>
-									</tr>
-									<?php
-								}
+								
 								if(mysqli_num_rows($fetchingData)>0){
 									
 									while($row = mysqli_fetch_assoc($fetchingData)){
@@ -157,40 +144,4 @@ if(isset($_GET["delete"])){
 	?>
 	<script>location.assign("index.php?ended=1")</script>
 	<?php
-} else if(isset($_GET["result"])){
-	$id = $_GET["result"];
-	$fetchElectionCandidates = mysqli_query($db, "SELECT*FROM candidates WHERE election_id='".$id."'");
-
-	if(mysqli_num_rows($fetchElectionCandidates)==0){
-		?>
-		<script>location.assign("index.php?no_candidates=1")</script>
-		<?php
-	}
-
-	$query = "
-        SELECT 
-            c.id,
-            c.name,
-            COUNT(v.id) AS total_votes
-        FROM 
-            candidates c
-        JOIN 
-            votes v ON c.id = v.candidate_id
-        WHERE 
-            c.election_id = '" . $id . "'
-        GROUP BY 
-            c.id, c.name
-        ORDER BY 
-            total_votes DESC
-        LIMIT 1";
-
-	$fetchMaxVotes = mysqli_query($db, $query);
-
-	if(mysqli_num_rows($fetchMaxVotes)>0){
-		$row = mysqli_fetch_assoc($fetchMaxVotes);
-		?>
-		<script>location.assign("index.php?results=<?php echo $row['id']; ?>&total_votes=<?php echo $row['total_votes']?>")</script>"
-		<?php
-	}
-}
-?>
+} ?>
